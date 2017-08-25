@@ -1,0 +1,30 @@
+apply plugin: 'jacoco'
+
+task jacocoTestReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    afterEvaluate {
+        classDirectories = fileTree(
+                dir: './build/intermediates/classes/debug',
+                excludes: ['**/R*.class',
+                           '**/*$InjectAdapter.class',
+                           '**/*$ModuleAdapter.class',
+                           '**/Dao*.class',
+                           '**/*$ViewInjector*.class',
+                           '**/ui',
+                           '**/component'
+                ])
+    }
+
+    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
+    def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
+    def mainSrc = "${project.projectDir}/src/main/java"
+
+    sourceDirectories = files([mainSrc])
+    classDirectories = files([debugTree])
+    executionData = files("${buildDir}/jacoco/testDebugUnitTest.exec")
+}
