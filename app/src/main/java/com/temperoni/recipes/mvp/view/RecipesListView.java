@@ -1,6 +1,6 @@
 package com.temperoni.recipes.mvp.view;
 
-import com.temperoni.recipes.domain.dto.Recipe;
+import com.temperoni.recipes.ui.models.RecipeViewModel;
 
 import java.util.List;
 
@@ -10,5 +10,7 @@ import java.util.List;
 
 public interface RecipesListView {
 
-    void displayRecipes(List<Recipe> recipes);
+    void displayRecipes(List<RecipeViewModel> recipes);
+
+    void navigateToRecipeDetail(int recipeId);
 }

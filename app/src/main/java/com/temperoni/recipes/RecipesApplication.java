@@ -2,12 +2,12 @@ package com.temperoni.recipes;
 
 import android.app.Application;
 
+import com.google.firebase.database.FirebaseDatabase;
 import com.temperoni.recipes.component.ApplicationModule;
 import com.temperoni.recipes.component.DaggerRecipesApplicationComponent;
 import com.temperoni.recipes.component.RecipesApplicationComponent;
 import com.temperoni.recipes.component.RecipesComponent;
 import com.temperoni.recipes.component.RecipesComponentProvider;
-import com.temperoni.recipes.component.RecipesModule;
 
 /**
  * @author Leandro Temperoni
@@ -22,6 +22,8 @@ public class RecipesApplication extends Application implements RecipesComponentP
         super.onCreate();
 
         initializeInjector();
+
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
     }
 
     private void initializeInjector() {

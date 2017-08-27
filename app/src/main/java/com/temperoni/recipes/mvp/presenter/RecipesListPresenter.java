@@ -3,6 +3,7 @@ package com.temperoni.recipes.mvp.presenter;
 import com.temperoni.recipes.domain.event.RecipesEvent;
 import com.temperoni.recipes.mvp.model.RecipesListModel;
 import com.temperoni.recipes.mvp.view.RecipesListView;
+import com.temperoni.recipes.ui.adapters.RecipesListAdapter;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -12,8 +13,7 @@ import javax.inject.Inject;
 /**
  * @author Leandro Temperoni
  */
-
-public class RecipesListPresenter extends BasePresenter {
+public class RecipesListPresenter extends BasePresenter implements RecipesListAdapter.RecipesListListener {
 
     private RecipesListView view;
     private RecipesListModel model;
@@ -44,8 +44,15 @@ public class RecipesListPresenter extends BasePresenter {
     public void onRecipesReceived(RecipesEvent event) {
         if (view != null) {
             if (event.isSuccess()) {
-                view.displayRecipes(event.getPayload());
+                view.displayRecipes(model.getViewModelList(event.getPayload()));
             }
+        }
+    }
+
+    @Override
+    public void onRecipeCardContainerTap(int recipeId) {
+        if (view != null) {
+            view.navigateToRecipeDetail(recipeId);
         }
     }
 }

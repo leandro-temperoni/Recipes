@@ -1,5 +1,6 @@
 package com.temperoni.recipes.ui.adapters;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.temperoni.recipes.R;
-import com.temperoni.recipes.domain.dto.Recipe;
+import com.temperoni.recipes.ui.models.RecipeViewModel;
 
 import java.util.List;
 
@@ -19,7 +20,8 @@ import java.util.List;
 
 public class RecipesListAdapter extends RecyclerView.Adapter<RecipesListAdapter.RecipeViewHolder> {
 
-    private List<Recipe> recipes;
+    private List<RecipeViewModel> recipes;
+    private RecipesListListener listener;
 
     @Override
     public RecipeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -32,7 +34,7 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesListAdapter.
     public void onBindViewHolder(RecipeViewHolder holder, int position) {
         holder.name.setText(recipes.get(position).getName());
         Picasso.with(holder.image.getContext())
-                .load(recipes.get(position).getImage())
+                .load(recipes.get(position).getImageUrl())
                 .into(holder.image);
     }
 
@@ -41,21 +43,41 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesListAdapter.
         return recipes != null ? recipes.size() : 0;
     }
 
-    public void setData(List<Recipe> recipes) {
+    public void setData(List<RecipeViewModel> recipes) {
         this.recipes = recipes;
         notifyDataSetChanged();
+    }
+
+    public void setListener(RecipesListListener listener) {
+        this.listener = listener;
     }
 
     class RecipeViewHolder extends RecyclerView.ViewHolder {
 
         TextView name;
         ImageView image;
+        CardView container;
 
         RecipeViewHolder(View itemView) {
             super(itemView);
 
             name = itemView.findViewById(R.id.recipe_name);
             image = itemView.findViewById(R.id.recipe_image);
+            container = itemView.findViewById(R.id.recipe_card_container);
+
+            container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null) {
+                        listener.onRecipeCardContainerTap(recipes.get(getAdapterPosition()).getId());
+                    }
+                }
+            });
         }
+    }
+
+    public interface RecipesListListener {
+
+        void onRecipeCardContainerTap(int recipeId);
     }
 }

@@ -1,17 +1,18 @@
 package com.temperoni.recipes.ui.activities;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.temperoni.recipes.R;
 import com.temperoni.recipes.component.RecipesComponentProvider;
-import com.temperoni.recipes.domain.dto.Recipe;
 import com.temperoni.recipes.mvp.presenter.RecipesListPresenter;
 import com.temperoni.recipes.mvp.view.RecipesListView;
 import com.temperoni.recipes.ui.adapters.RecipesListAdapter;
+import com.temperoni.recipes.ui.models.RecipeViewModel;
 import com.temperoni.recipes.ui.views.VerticalSpaceItemDecoration;
 
 import java.util.List;
@@ -19,6 +20,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 public class RecipesListActivity extends AppCompatActivity implements RecipesListView {
+
+    static final String EXTRA_RECIPE_ID = "EXTRA_RECIPE_ID";
 
     private RecyclerView mRecipesView;
     private RecipesListAdapter mAdapter;
@@ -40,6 +43,7 @@ public class RecipesListActivity extends AppCompatActivity implements RecipesLis
         mRecipesView.setItemAnimator(new DefaultItemAnimator());
         mRecipesView.setHasFixedSize(true);
         mAdapter = new RecipesListAdapter();
+        mAdapter.setListener(presenter);
         mRecipesView.setAdapter(mAdapter);
 
         presenter.setView(this);
@@ -59,7 +63,14 @@ public class RecipesListActivity extends AppCompatActivity implements RecipesLis
     }
 
     @Override
-    public void displayRecipes(List<Recipe> recipes) {
+    public void displayRecipes(List<RecipeViewModel> recipes) {
         mAdapter.setData(recipes);
+    }
+
+    @Override
+    public void navigateToRecipeDetail(int recipeId) {
+        Intent intent = new Intent(this, RecipeDetailActivity.class);
+        intent.putExtra(EXTRA_RECIPE_ID, recipeId);
+        startActivity(intent);
     }
 }

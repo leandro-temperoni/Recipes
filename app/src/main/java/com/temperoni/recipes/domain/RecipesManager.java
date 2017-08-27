@@ -1,4 +1,4 @@
-package com.temperoni.recipes;
+package com.temperoni.recipes.domain;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
