@@ -1,15 +1,19 @@
 package com.temperoni.recipes.mvp.presenter;
 
+import com.temperoni.recipes.domain.event.RecipeDetailEvent;
+import com.temperoni.recipes.domain.event.RecipesEvent;
 import com.temperoni.recipes.mvp.model.RecipeDetailModel;
 import com.temperoni.recipes.mvp.view.RecipeDetailView;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import javax.inject.Inject;
 
 /**
  * @author Leandro Temperoni
  */
+
 
 public class RecipeDetailPresenter extends BasePresenter {
 
@@ -24,5 +28,18 @@ public class RecipeDetailPresenter extends BasePresenter {
 
     public void setView(RecipeDetailView view) {
         this.view = view;
+    }
+
+    public void fetchRecipeDetail(String recipeId) {
+        model.fetchRecipeDetail(recipeId);
+    }
+
+    @Subscribe
+    public void onRecipeDetailReceived(RecipeDetailEvent event) {
+        if (view != null) {
+            if (event.isSuccess()) {
+                view.displayRecipeDetail(model.getViewModel(event.getPayload()));
+            }
+        }
     }
 }

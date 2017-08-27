@@ -14,6 +14,8 @@ import com.temperoni.recipes.ui.models.RecipeViewModel;
 
 import java.util.List;
 
+import static java.lang.String.*;
+
 /**
  * @author Leandro Temperoni
  */
@@ -69,7 +71,7 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesListAdapter.
                 @Override
                 public void onClick(View view) {
                     if (listener != null) {
-                        listener.onRecipeCardContainerTap(recipes.get(getAdapterPosition()).getId());
+                        listener.onRecipeCardContainerTap(valueOf(recipes.get(getAdapterPosition()).getId()), image);
                     }
                 }
             });
@@ -78,6 +80,6 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesListAdapter.
 
     public interface RecipesListListener {
 
-        void onRecipeCardContainerTap(int recipeId);
+        void onRecipeCardContainerTap(String recipeId, View sharedView);
     }
 }

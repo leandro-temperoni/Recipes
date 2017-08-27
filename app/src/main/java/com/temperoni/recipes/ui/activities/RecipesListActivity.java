@@ -1,11 +1,13 @@
 package com.temperoni.recipes.ui.activities;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.temperoni.recipes.R;
 import com.temperoni.recipes.component.RecipesComponentProvider;
@@ -68,9 +70,12 @@ public class RecipesListActivity extends AppCompatActivity implements RecipesLis
     }
 
     @Override
-    public void navigateToRecipeDetail(int recipeId) {
+    public void navigateToRecipeDetail(String recipeId, View sharedView) {
         Intent intent = new Intent(this, RecipeDetailActivity.class);
         intent.putExtra(EXTRA_RECIPE_ID, recipeId);
-        startActivity(intent);
+
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, sharedView, "agreedName1");
+
+        startActivity(intent, options.toBundle());
     }
 }

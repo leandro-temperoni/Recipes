@@ -4,7 +4,7 @@ package com.temperoni.recipes.domain.dto;
  * @author Leandro Temperoni
  */
 
-class Ingredient {
+public class Ingredient {
 
     private String amount;
     private String name;

@@ -6,7 +6,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.temperoni.recipes.domain.dto.Recipe;
+import com.temperoni.recipes.domain.event.RecipeDetailEvent;
 import com.temperoni.recipes.domain.event.RecipesEvent;
+import com.temperoni.recipes.domain.event.ResponseEvent;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -21,7 +23,7 @@ import javax.inject.Inject;
 public class RecipesManager {
 
     @Inject
-    public RecipesManager() {
+    RecipesManager() {
     }
 
     public void fetchRecipes() {
@@ -35,7 +37,29 @@ public class RecipesManager {
                 for (DataSnapshot data : iterable) {
                     recipes.add(data.getValue(Recipe.class));
                 }
-                postEvent(recipes);
+                postEvent(new RecipesEvent(), recipes, null);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                databaseError.getMessage();
+                EventBus.getDefault().post(new RecipesEvent());
+            }
+        });
+    }
+
+    public void fetchRecipeDetail(String recipeId) {
+
+        Query query = FirebaseDatabase.getInstance().getReference("recipes").child(recipeId);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Recipe recipe = null;
+                Iterable<DataSnapshot> iterable = dataSnapshot.getChildren();
+                for (DataSnapshot data : iterable) {
+                    recipe = data.getValue(Recipe.class);
+                }
+                postEvent(new RecipeDetailEvent(), recipe, null);
             }
 
             @Override
@@ -45,9 +69,12 @@ public class RecipesManager {
         });
     }
 
-    private void postEvent(List<Recipe> recipes) {
-        RecipesEvent event = new RecipesEvent();
-        event.setPayload(recipes);
+    private void postEvent(ResponseEvent event, Object payload, String errorMessage) {
+        if (payload != null) {
+            event.setPayload(payload);
+        } else {
+            event.setErrorMessage(errorMessage);
+        }
         EventBus.getDefault().post(event);
     }
 }

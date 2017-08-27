@@ -1,12 +1,11 @@
-package com.temperoni.recipes.domain.dto;
+package com.temperoni.recipes.ui.models;
 
 import java.util.List;
 
 /**
  * @author Leandro Temperoni
  */
-
-public class Section {
+class SectionViewModel {
 
     private String description;
     private List<String> steps;
@@ -17,5 +16,13 @@ public class Section {
 
     public List<String> getSteps() {
         return steps;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setSteps(List<String> steps) {
+        this.steps = steps;
     }
 }

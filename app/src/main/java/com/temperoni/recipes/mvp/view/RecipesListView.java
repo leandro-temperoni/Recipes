@@ -1,5 +1,7 @@
 package com.temperoni.recipes.mvp.view;
 
+import android.view.View;
+
 import com.temperoni.recipes.ui.models.RecipeViewModel;
 
 import java.util.List;
@@ -12,5 +14,5 @@ public interface RecipesListView {
 
     void displayRecipes(List<RecipeViewModel> recipes);
 
-    void navigateToRecipeDetail(int recipeId);
+    void navigateToRecipeDetail(String recipeId, View sharedView);
 }
