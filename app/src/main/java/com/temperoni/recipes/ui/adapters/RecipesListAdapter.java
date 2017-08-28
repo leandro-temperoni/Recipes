@@ -65,13 +65,17 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesListAdapter.
 
             name = itemView.findViewById(R.id.recipe_name);
             image = itemView.findViewById(R.id.recipe_image);
+            image.setDrawingCacheEnabled(true);
             container = itemView.findViewById(R.id.recipe_card_container);
 
             container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (listener != null) {
-                        listener.onRecipeCardContainerTap(valueOf(recipes.get(getAdapterPosition()).getId()), image);
+                        listener.onRecipeCardContainerTap(
+                                valueOf(recipes.get(getAdapterPosition()).getId()),
+                                valueOf(recipes.get(getAdapterPosition()).getImageUrl()),
+                                image);
                     }
                 }
             });
@@ -80,6 +84,6 @@ public class RecipesListAdapter extends RecyclerView.Adapter<RecipesListAdapter.
 
     public interface RecipesListListener {
 
-        void onRecipeCardContainerTap(String recipeId, View sharedView);
+        void onRecipeCardContainerTap(String recipeId, String imageUrl, View sharedView);
     }
 }

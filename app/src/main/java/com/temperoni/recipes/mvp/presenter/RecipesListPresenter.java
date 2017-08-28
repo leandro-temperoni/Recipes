@@ -53,9 +53,9 @@ public class RecipesListPresenter extends BasePresenter implements RecipesListLi
     }
 
     @Override
-    public void onRecipeCardContainerTap(String recipeId, View sharedView) {
+    public void onRecipeCardContainerTap(String recipeId, String imageUrl, View sharedView) {
         if (view != null) {
-            view.navigateToRecipeDetail(recipeId, sharedView);
+            view.navigateToRecipeDetail(recipeId, imageUrl, sharedView);
         }
     }
 }

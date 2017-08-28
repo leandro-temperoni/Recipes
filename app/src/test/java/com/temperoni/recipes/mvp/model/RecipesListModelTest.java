@@ -1,6 +1,6 @@
 package com.temperoni.recipes.mvp.model;
 
-import com.temperoni.recipes.RecipesManager;
+import com.temperoni.recipes.domain.RecipesManager;
 
 import org.junit.Before;
 import org.junit.Test;

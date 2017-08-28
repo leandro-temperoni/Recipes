@@ -24,6 +24,7 @@ import javax.inject.Inject;
 public class RecipesListActivity extends AppCompatActivity implements RecipesListView {
 
     static final String EXTRA_RECIPE_ID = "EXTRA_RECIPE_ID";
+    static final String EXTRA_RECIPE_IMAGE = "EXTRA_RECIPE_IMAGE";
 
     private RecyclerView mRecipesView;
     private RecipesListAdapter mAdapter;
@@ -70,11 +71,12 @@ public class RecipesListActivity extends AppCompatActivity implements RecipesLis
     }
 
     @Override
-    public void navigateToRecipeDetail(String recipeId, View sharedView) {
+    public void navigateToRecipeDetail(String recipeId, String recipeImageUrl, View sharedView) {
         Intent intent = new Intent(this, RecipeDetailActivity.class);
         intent.putExtra(EXTRA_RECIPE_ID, recipeId);
+        intent.putExtra(EXTRA_RECIPE_IMAGE, recipeImageUrl);
 
-        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, sharedView, "agreedName1");
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(this, sharedView, "recipe_image");
 
         startActivity(intent, options.toBundle());
     }

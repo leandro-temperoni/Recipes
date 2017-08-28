@@ -19,11 +19,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
+            app:titleEnabled="false"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
             <ImageView
-                android:id="@+id/header"
+                android:id="@+id/header_recipe_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:transitionName="recipe_image"

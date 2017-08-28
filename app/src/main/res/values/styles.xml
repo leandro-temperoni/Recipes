@@ -9,10 +9,6 @@
 
         <!-- enable window content transitions -->
         <item name="android:windowContentTransitions">true</item>
-
-        <!-- specify shared element transitions -->
-        <item name="android:windowSharedElementEnterTransition">@transition/recipe_image_transition</item>
-        <item name="android:windowSharedElementExitTransition">@transition/recipe_image_transition</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

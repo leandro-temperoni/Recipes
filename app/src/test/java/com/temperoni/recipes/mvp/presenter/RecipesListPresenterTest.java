@@ -4,6 +4,7 @@ import com.temperoni.recipes.domain.dto.Recipe;
 import com.temperoni.recipes.domain.event.RecipesEvent;
 import com.temperoni.recipes.mvp.model.RecipesListModel;
 import com.temperoni.recipes.mvp.view.RecipesListView;
+import com.temperoni.recipes.ui.models.RecipeViewModel;
 
 import org.greenrobot.eventbus.EventBus;
 import org.junit.Before;
@@ -52,8 +53,10 @@ public class RecipesListPresenterTest {
         when(event.isSuccess()).thenReturn(true);
         ArrayList<Recipe> recipes = new ArrayList<>();
         when(event.getPayload()).thenReturn(recipes);
+        ArrayList<RecipeViewModel> recipeViewModels = new ArrayList<>();
+        when(model.getViewModelList(event.getPayload())).thenReturn(recipeViewModels);
         presenter.onRecipesReceived(event);
-        verify(view).displayRecipes(recipes);
+        verify(view).displayRecipes(recipeViewModels);
     }
 
     @Test

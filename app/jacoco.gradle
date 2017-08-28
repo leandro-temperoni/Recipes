@@ -1,30 +1,41 @@
 apply plugin: 'jacoco'
 
-task jacocoTestReport(type: JacocoReport, dependsOn: 'testDebugUnitTest') {
+def coverageSourceDirs = [
+        'src/main/java'
+]
 
+jacoco {
+    toolVersion = "0.7.6.201602180812"
+}
+
+task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
+
+    group = "Reporting"
+
+    description = "Generate Jacoco coverage reports"
+
+    classDirectories = fileTree(
+            dir: 'build/intermediates/classes/debug/com/temperoni/recipes',
+            excludes: ['**/R.class',
+                       '**/R$*.class',
+                       '**/*_Provide*Factory.class',
+                       '**/*_Factory.class',
+                       '**/*_MembersInjector.class',
+                       '/ui',
+                       '/component',
+                       '**/BuildConfig.*',
+                       '**/Manifest*.*']
+    )
+
+    additionalSourceDirs = files(coverageSourceDirs)
+    sourceDirectories = files(coverageSourceDirs)
+    executionData = files('build/jacoco/testDebugUnitTest.exec')
+}
+
+jacocoTestReport {
     reports {
         xml.enabled = true
         html.enabled = true
+        html.destination "${buildDir}/jacocoHtml"
     }
-
-    afterEvaluate {
-        classDirectories = fileTree(
-                dir: './build/intermediates/classes/debug',
-                excludes: ['**/R*.class',
-                           '**/*$InjectAdapter.class',
-                           '**/*$ModuleAdapter.class',
-                           '**/Dao*.class',
-                           '**/*$ViewInjector*.class',
-                           '**/ui',
-                           '**/component'
-                ])
-    }
-
-    def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*']
-    def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
-    def mainSrc = "${project.projectDir}/src/main/java"
-
-    sourceDirectories = files([mainSrc])
-    classDirectories = files([debugTree])
-    executionData = files("${buildDir}/jacoco/testDebugUnitTest.exec")
 }

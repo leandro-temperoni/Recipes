@@ -5,7 +5,7 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:id="@+id/ingredients_container"
+        android:id="@+id/description_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -22,18 +22,23 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:tint="?attr/colorPrimary"
-                android:src="@drawable/ic_kitchen_black_24dp"/>
+                android:src="@drawable/ic_restaurant_black_24dp"/>
 
             <TextView
+                android:id="@+id/recipe_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="INGREDIENTES"
                 android:textStyle="bold"
                 android:layout_marginLeft="10dp"
                 android:textSize="18sp"
                 android:textColor="?attr/colorPrimary" />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/recipe_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

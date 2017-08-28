@@ -22,12 +22,12 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:tint="?attr/colorPrimary"
-                android:src="@drawable/ic_restaurant_black_24dp"/>
+                android:src="@drawable/ic_format_list_numbered_black_24dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="INSTRUCTIONS"
+                android:text="PASO A PASO"
                 android:textStyle="bold"
                 android:layout_marginLeft="10dp"
                 android:textSize="18sp"

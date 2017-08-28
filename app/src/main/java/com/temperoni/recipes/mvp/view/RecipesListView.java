@@ -14,5 +14,5 @@ public interface RecipesListView {
 
     void displayRecipes(List<RecipeViewModel> recipes);
 
-    void navigateToRecipeDetail(String recipeId, View sharedView);
+    void navigateToRecipeDetail(String recipeId, String imageUrl, View sharedView);
 }
