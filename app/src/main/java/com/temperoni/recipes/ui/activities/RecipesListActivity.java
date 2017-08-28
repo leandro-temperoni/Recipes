@@ -53,14 +53,14 @@ public class RecipesListActivity extends AppCompatActivity implements RecipesLis
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         presenter.register();
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onPause() {
+        super.onPause();
         presenter.unregister();
     }
 

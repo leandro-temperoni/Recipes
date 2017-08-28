@@ -1,7 +1,7 @@
 package com.temperoni.recipes.ui.models;
 
 import com.temperoni.recipes.domain.dto.Ingredient;
-import com.temperoni.recipes.domain.dto.Section;
+import com.temperoni.recipes.domain.dto.InstructionItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,18 +13,18 @@ public class RecipeDetailViewModel {
 
     private int id;
     private String imageUrl;
-    private List<String> ingredients;
+    private List<IngredientEntryViewModel> ingredients;
     private String introduction;
     private String name;
-    private List<SectionViewModel> sections;
+    private List<InstructionItemViewModel> instructions;
 
-    public RecipeDetailViewModel(Builder builder) {
-        builder.id = id;
-        builder.imageUrl = imageUrl;
-        builder.ingredients = ingredients;
-        builder.introduction = introduction;
-        builder.name = name;
-        builder.sections = sections;
+    private RecipeDetailViewModel(Builder builder) {
+        id = builder.id;
+        imageUrl = builder.imageUrl;
+        ingredients = builder.ingredients;
+        introduction = builder.introduction;
+        name = builder.name;
+        instructions = builder.instructions;
     }
 
     public int getId() {
@@ -39,7 +39,7 @@ public class RecipeDetailViewModel {
         return imageUrl;
     }
 
-    public List<String> getIngredients() {
+    public List<IngredientEntryViewModel> getIngredients() {
         return ingredients;
     }
 
@@ -47,21 +47,21 @@ public class RecipeDetailViewModel {
         return introduction;
     }
 
-    public List<SectionViewModel> getSections() {
-        return sections;
+    public List<InstructionItemViewModel> getInstructions() {
+        return instructions;
     }
 
     public static class Builder {
 
         int id;
         String imageUrl;
-        List<String> ingredients;
+        List<IngredientEntryViewModel> ingredients;
         String introduction;
         String name;
-        List<SectionViewModel> sections;
+        List<InstructionItemViewModel> instructions;
 
         List<Ingredient> ingredientList;
-        List<Section> sectionList;
+        List<InstructionItem> instructionItemList;
 
         public Builder(int id, String name, String imageUrl, String introduction) {
             this.id = id;
@@ -75,14 +75,14 @@ public class RecipeDetailViewModel {
             return this;
         }
 
-        public Builder withSections(List<Section> sectionList) {
-            this.sectionList = sectionList;
+        public Builder withInstructions(List<InstructionItem> instructionItemList) {
+            this.instructionItemList = instructionItemList;
             return this;
         }
 
         public RecipeDetailViewModel build() {
             getIngredients(ingredientList);
-            getSections(sectionList);
+            getInstructions(instructionItemList);
 
             return new RecipeDetailViewModel(this);
         }
@@ -90,22 +90,32 @@ public class RecipeDetailViewModel {
         private void getIngredients(List<Ingredient> ingredientList) {
             ingredients = new ArrayList<>();
             for (Ingredient ingredient : ingredientList) {
-                ingredients.add(ingredient.getName() + " de " + ingredient.getAmount());
+                ingredients.add(getIngredientViewModel(ingredient));
+            }
+
+            if (!ingredients.isEmpty()) {
+                ingredients.get(ingredientList.size() - 1).setLastEntry(true);
             }
         }
 
-        private void getSections(List<Section> sectionList) {
-            sections = new ArrayList<>();
-            for (Section section : sectionList) {
-                sections.add(getSectionViewModel(section));
+        private IngredientEntryViewModel getIngredientViewModel(Ingredient ingredient) {
+            IngredientEntryViewModel ingredientEntryViewModel = new IngredientEntryViewModel();
+            ingredientEntryViewModel.setDescription(ingredient.getAmount() + " de " + ingredient.getName());
+            return ingredientEntryViewModel;
+        }
+
+        private void getInstructions(List<InstructionItem> instructionItemList) {
+            instructions = new ArrayList<>();
+            for (InstructionItem instructionItem : instructionItemList) {
+                instructions.add(getInstructionItemViewModel(instructionItem));
             }
         }
 
-        private SectionViewModel getSectionViewModel(Section section) {
-            SectionViewModel sectionViewModel = new SectionViewModel();
-            sectionViewModel.setDescription(section.getDescription());
-            sectionViewModel.setSteps(section.getSteps());
-            return sectionViewModel;
+        private InstructionItemViewModel getInstructionItemViewModel(InstructionItem instructionItem) {
+            InstructionItemViewModel instructionItemViewModel = new InstructionItemViewModel();
+            instructionItemViewModel.setDescription(instructionItem.getDescription());
+            instructionItemViewModel.setSteps(instructionItem.getSteps());
+            return instructionItemViewModel;
         }
     }
 }

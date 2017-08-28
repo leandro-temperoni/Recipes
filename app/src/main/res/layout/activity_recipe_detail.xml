@@ -54,7 +54,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
         android:clickable="true"
-        app:backgroundTint="#279AF1"
+        android:src="@drawable/ic_favorite_border_black_24dp"
+        android:tint="#FFFFFF"
+        app:backgroundTint="?attr/colorPrimaryDark"
         app:fabSize="normal"
         app:layout_anchor="@+id/app_bar"
         app:layout_anchorGravity="bottom|right|end"/>

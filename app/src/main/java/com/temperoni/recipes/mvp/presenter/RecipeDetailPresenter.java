@@ -1,7 +1,6 @@
 package com.temperoni.recipes.mvp.presenter;
 
 import com.temperoni.recipes.domain.event.RecipeDetailEvent;
-import com.temperoni.recipes.domain.event.RecipesEvent;
 import com.temperoni.recipes.mvp.model.RecipeDetailModel;
 import com.temperoni.recipes.mvp.view.RecipeDetailView;
 
@@ -32,6 +31,14 @@ public class RecipeDetailPresenter extends BasePresenter {
 
     public void fetchRecipeDetail(String recipeId) {
         model.fetchRecipeDetail(recipeId);
+    }
+
+    public void register() {
+        bus.register(this);
+    }
+
+    public void unregister() {
+        bus.unregister(this);
     }
 
     @Subscribe

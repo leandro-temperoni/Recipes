@@ -22,51 +22,24 @@ import javax.inject.Inject;
  */
 public class RecipesManager {
 
+    private Query query;
+    private RecipesQueryHandler recipesQueryHandler;
+    private RecipeDetailQueryHandler recipeDetailQueryHandler;
+
     @Inject
     RecipesManager() {
     }
 
     public void fetchRecipes() {
-
-        Query query = FirebaseDatabase.getInstance().getReference("recipes");
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Recipe> recipes = new ArrayList<>();
-                Iterable<DataSnapshot> iterable = dataSnapshot.getChildren();
-                for (DataSnapshot data : iterable) {
-                    recipes.add(data.getValue(Recipe.class));
-                }
-                postEvent(new RecipesEvent(), recipes, null);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                databaseError.getMessage();
-                EventBus.getDefault().post(new RecipesEvent());
-            }
-        });
+        query = FirebaseDatabase.getInstance().getReference("recipes");
+        recipesQueryHandler = new RecipesQueryHandler();
+        query.addListenerForSingleValueEvent(recipesQueryHandler);
     }
 
     public void fetchRecipeDetail(String recipeId) {
-
-        Query query = FirebaseDatabase.getInstance().getReference("recipes").child(recipeId);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Recipe recipe = null;
-                Iterable<DataSnapshot> iterable = dataSnapshot.getChildren();
-                for (DataSnapshot data : iterable) {
-                    recipe = data.getValue(Recipe.class);
-                }
-                postEvent(new RecipeDetailEvent(), recipe, null);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                EventBus.getDefault().post(new RecipesEvent());
-            }
-        });
+        query = FirebaseDatabase.getInstance().getReference("recipes").child(recipeId);
+        recipeDetailQueryHandler = new RecipeDetailQueryHandler();
+        query.addListenerForSingleValueEvent(recipeDetailQueryHandler);
     }
 
     private void postEvent(ResponseEvent event, Object payload, String errorMessage) {
@@ -76,5 +49,51 @@ public class RecipesManager {
             event.setErrorMessage(errorMessage);
         }
         EventBus.getDefault().post(event);
+
+        unRegisterListeners();
+    }
+
+    private void unRegisterListeners() {
+        if (recipesQueryHandler != null) {
+            query.removeEventListener(recipesQueryHandler);
+        }
+        if (recipeDetailQueryHandler != null) {
+            query.removeEventListener(recipeDetailQueryHandler);
+        }
+    }
+
+    private class RecipesQueryHandler implements ValueEventListener {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            List<Recipe> recipes = new ArrayList<>();
+            Iterable<DataSnapshot> iterable = dataSnapshot.getChildren();
+            for (DataSnapshot data : iterable) {
+                recipes.add(data.getValue(Recipe.class));
+            }
+            postEvent(new RecipesEvent(), recipes, null);
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            databaseError.getMessage();
+            EventBus.getDefault().post(new RecipesEvent());
+        }
+    }
+
+    private class RecipeDetailQueryHandler implements ValueEventListener {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            Recipe recipe = null;
+            if (dataSnapshot != null) {
+                recipe = dataSnapshot.getValue(Recipe.class);
+            }
+            postEvent(new RecipeDetailEvent(), recipe, null);
+        }
+
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+            databaseError.getMessage();
+            EventBus.getDefault().post(new RecipeDetailEvent());
+        }
     }
 }

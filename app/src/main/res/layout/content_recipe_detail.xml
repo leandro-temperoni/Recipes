@@ -10,8 +10,22 @@
     tools:showIn="@layout/activity_recipe_detail">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="2000dp"
-        android:layout_margin="@dimen/text_margin" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.temperoni.recipes.ui.views.IngredientsSection
+            android:id="@+id/ingredients_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp" />
+
+        <com.temperoni.recipes.ui.views.InstructionsSection
+            android:id="@+id/instructions_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp" />
+
+    </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

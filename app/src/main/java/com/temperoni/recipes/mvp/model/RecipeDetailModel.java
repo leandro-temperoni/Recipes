@@ -14,7 +14,7 @@ public class RecipeDetailModel {
     private RecipesManager recipesManager;
 
     @Inject
-    public RecipeDetailModel(RecipesManager recipesManager) {
+    RecipeDetailModel(RecipesManager recipesManager) {
         this.recipesManager = recipesManager;
     }
 
@@ -29,7 +29,7 @@ public class RecipeDetailModel {
                 payload.getImage(),
                 payload.getIntroduction())
                 .withIngredients(payload.getIngredients())
-                .withSections(payload.getSections())
+                .withInstructions(payload.getInstructions())
                 .build();
     }
 }

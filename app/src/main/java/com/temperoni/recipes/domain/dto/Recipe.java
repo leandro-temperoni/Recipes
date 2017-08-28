@@ -13,7 +13,7 @@ public class Recipe {
     private List<Ingredient> ingredients;
     private String introduction;
     private String name;
-    private List<Section> sections;
+    private List<InstructionItem> instructions;
 
     public int getId() {
         return id;
@@ -35,7 +35,7 @@ public class Recipe {
         return name;
     }
 
-    public List<Section> getSections() {
-        return sections;
+    public List<InstructionItem> getInstructions() {
+        return instructions;
     }
 }

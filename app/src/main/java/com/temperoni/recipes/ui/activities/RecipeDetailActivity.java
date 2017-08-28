@@ -10,6 +10,7 @@ import com.temperoni.recipes.component.RecipesComponentProvider;
 import com.temperoni.recipes.mvp.presenter.RecipeDetailPresenter;
 import com.temperoni.recipes.mvp.view.RecipeDetailView;
 import com.temperoni.recipes.ui.models.RecipeDetailViewModel;
+import com.temperoni.recipes.ui.views.IngredientsSection;
 
 import javax.inject.Inject;
 
@@ -21,6 +22,9 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
     RecipeDetailPresenter presenter;
 
     private CollapsingToolbarLayout collapsingToolbar;
+    private IngredientsSection ingredientsSection;
+
+    private String recipeId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,15 +38,29 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+        ingredientsSection = (IngredientsSection) findViewById(R.id.ingredients_section);
 
-        String recipeId = getIntent().getExtras().getString(EXTRA_RECIPE_ID);
+        recipeId = getIntent().getExtras().getString(EXTRA_RECIPE_ID);
 
         presenter.setView(this);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.register();
         presenter.fetchRecipeDetail(recipeId);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        presenter.unregister();
     }
 
     @Override
     public void displayRecipeDetail(RecipeDetailViewModel viewModel) {
         collapsingToolbar.setTitle(viewModel.getName());
+        ingredientsSection.setIngredients(viewModel.getIngredients());
     }
 }
