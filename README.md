@@ -7,7 +7,7 @@ This project aims to be a simple app, which contains recipes. The idea behind it
 - MVP architecture **(achieved)**
 - Dependency injection with Dagger 2 **(achieved)**
 - Unit testing with JUnit **(achieved)**
-- Code coverage reports with Jacoco
+- Code coverage reports with Jacoco **(achieved)**
 - Continuos integration with Jenkins
 - Kotlin as language
 - Support for GraphQL backend
