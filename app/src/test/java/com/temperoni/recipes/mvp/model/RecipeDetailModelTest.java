@@ -2,7 +2,7 @@ package com.temperoni.recipes.mvp.model;
 
 import android.content.Context;
 
-import com.temperoni.recipes.domain.RecipesManager;
+import com.temperoni.recipes.manager.RecipesManager;
 
 import org.junit.Before;
 import org.junit.Test;

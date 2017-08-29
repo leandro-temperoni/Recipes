@@ -3,7 +3,7 @@ package com.temperoni.recipes.mvp.model;
 import android.content.Context;
 
 import com.temperoni.recipes.BuildConfig;
-import com.temperoni.recipes.domain.RecipesManager;
+import com.temperoni.recipes.manager.RecipesManager;
 import com.temperoni.recipes.domain.dto.Recipe;
 import com.temperoni.recipes.ui.models.RecipeViewModel;
 import com.temperoni.recipes.utils.Decoder;
