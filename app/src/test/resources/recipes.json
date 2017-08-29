@@ -1,0 +1,129 @@
+{
+  "recipes": [
+    {
+      "id": 0,
+      "image": "https://firebasestorage.googleapis.com/v0/b/recipes-cb2a2.appspot.com/o/Cheesecake%20de%20frutos%20rojos.jpg?alt=media&token=959dc319-061a-4210-8724-54878c785870",
+      "ingredients": [
+        {
+          "amount": "800 gr",
+          "name": "Queso crema"
+        },
+        {
+          "amount": "400 gr",
+          "name": "Crema"
+        },
+        {
+          "amount": "150 gr",
+          "name": "Manteca"
+        },
+        {
+          "amount": "225 gr",
+          "name": "Azucar"
+        },
+        {
+          "amount": "100 ml",
+          "name": "Leche"
+        },
+        {
+          "amount": "125 gr",
+          "name": "Frutos rojos"
+        },
+        {
+          "amount": "1 crdita",
+          "name": "Esencia de vainilla"
+        },
+        {
+          "amount": "Un toque",
+          "name": "Jugo de limon"
+        }
+      ],
+      "instructions": [
+        {
+          "description": "Para la base",
+          "steps": [
+            "Triturar todas las galletitas hasta hacerlas polvo y reservar en un bowl. Se puede utilizar una procesadora para agilizar el proceso.",
+            "Derretir la manteca y verterla lentamente sobre el polvo de galletas. Unir revolviendo con un tenedor hasta humedecer todo el contenido.",
+            "Colocar la mezcla obtenida en el molde y alisar formando una base sobre el mismo. Llevar a la heladera, mientras continuamos con la crema."
+          ]
+        },
+        {
+          "description": "Para la crema",
+          "steps": [
+            "En un recipiente grande, echar el queso crema, el azucar impalpable y la leche.",
+            "Revolver hasta conseguir una mezcla homogénea.",
+            "Agregar aquí la esencia de vainilla.",
+            "En otro recipiente separado, agregar la crema de leche y batir con batidora eléctrica hasta montar.",
+            "Incorporar la crema batida a la mezcla anterior y revolver hasta unir.",
+            "Agregar el jugo de limón a gusto.",
+            "Verter la mezcla conseguida en el molde sobre la base de galletitas. Alisar para que no quede desparejo. Llevar al freezer durante 30 minutos, mientras continuamos con el coulis."
+          ]
+        },
+        {
+          "description": "Para el coulis",
+          "steps": [
+            "Procesar los frutos rojos junto con 25 gr de azúcar hasta obtener la consistencia deseada.",
+            "Retirar el molde del freezer y verter la mezcla obtenida sobre la crema de queso, y cubrir la totalidad de la torta.",
+            null,
+            "Llevar a la heladera por al menos 6 horas. Servir bien frío."
+          ]
+        }
+      ],
+      "introduction": "Esta receta es muy sencilla, no lleva cocción. Se necesitaran galletas sabor vainilla de la marca que usted desee, y frutos rojos varios también a elección, se recomiendan frutillas y arándanos. Para la crema de queso se recomienda utilizar queso de tipo Philadelphia o queso crema Finlandia clásico.",
+      "name": "Cheesecake de frutos rojos"
+    },
+    {
+      "id": 1,
+      "image": "https://firebasestorage.googleapis.com/v0/b/recipes-cb2a2.appspot.com/o/Brownie%20con%20crema.jpg?alt=media&token=7caa100c-12ed-4814-b4bd-663da01b1dd7",
+      "ingredients": [
+        {
+          "amount": "800 gr",
+          "name": "Queso crema"
+        },
+        {
+          "amount": "400 gr",
+          "name": "Crema"
+        },
+        {
+          "amount": "150 gr",
+          "name": "Manteca"
+        },
+        {
+          "amount": "225 gr",
+          "name": "Azucar"
+        },
+        {
+          "amount": "100 ml",
+          "name": "Leche"
+        },
+        {
+          "amount": "125 gr",
+          "name": "Frutos rojos"
+        },
+        {
+          "amount": "1 crdita",
+          "name": "Esencia de vainilla"
+        },
+        {
+          "amount": "Un toque",
+          "name": "Jugo de limon"
+        }
+      ],
+      "instructions": [
+        {
+          "description": "Para el brownie",
+          "steps": [
+            "Paso 1."
+          ]
+        },
+        {
+          "description": "Para la crema",
+          "steps": [
+            "Paso 1."
+          ]
+        }
+      ],
+      "introduction": "Esta receta bla bla.",
+      "name": "Brownie con crema"
+    }
+  ]
+}

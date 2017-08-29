@@ -1,5 +1,7 @@
 package com.temperoni.recipes.mvp.presenter;
 
+import android.view.View;
+
 import com.temperoni.recipes.domain.dto.Recipe;
 import com.temperoni.recipes.domain.event.RecipesEvent;
 import com.temperoni.recipes.mvp.model.RecipesListModel;
@@ -50,13 +52,21 @@ public class RecipesListPresenterTest {
     @Test
     public void itShouldDisplayRecipes() throws Exception {
         RecipesEvent event = mock(RecipesEvent.class);
-        when(event.isSuccess()).thenReturn(true);
-        ArrayList<Recipe> recipes = new ArrayList<>();
-        when(event.getPayload()).thenReturn(recipes);
         ArrayList<RecipeViewModel> recipeViewModels = new ArrayList<>();
+        ArrayList<Recipe> recipes = new ArrayList<>();
+        when(event.isSuccess()).thenReturn(true);
+        when(event.getPayload()).thenReturn(recipes);
         when(model.getViewModelList(event.getPayload())).thenReturn(recipeViewModels);
+
         presenter.onRecipesReceived(event);
         verify(view).displayRecipes(recipeViewModels);
+    }
+
+    @Test
+    public void itShouldNavigateToRecipeDetail() throws Exception {
+        View sharedView = mock(View.class);
+        presenter.onRecipeCardContainerTap("123", "https://www.asd.com/image.jpg", sharedView);
+        verify(view).navigateToRecipeDetail("123", "https://www.asd.com/image.jpg", sharedView);
     }
 
     @Test

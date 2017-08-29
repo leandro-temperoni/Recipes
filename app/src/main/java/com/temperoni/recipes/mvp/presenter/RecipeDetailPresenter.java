@@ -12,8 +12,6 @@ import javax.inject.Inject;
 /**
  * @author Leandro Temperoni
  */
-
-
 public class RecipeDetailPresenter extends BasePresenter {
 
     private RecipeDetailView view;

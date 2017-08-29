@@ -23,8 +23,10 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
                        '**/*_MembersInjector.class',
                        '/ui',
                        '/component',
+                       '/domain',
                        '**/BuildConfig.*',
-                       '**/Manifest*.*']
+                       '**/Manifest*.*',
+                       '**/*Application.*']
     )
 
     additionalSourceDirs = files(coverageSourceDirs)
