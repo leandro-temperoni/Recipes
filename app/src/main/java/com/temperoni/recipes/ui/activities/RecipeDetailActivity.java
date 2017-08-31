@@ -14,6 +14,7 @@ import com.temperoni.recipes.mvp.view.RecipeDetailView;
 import com.temperoni.recipes.ui.models.RecipeDetailViewModel;
 import com.temperoni.recipes.ui.views.DescriptionSection;
 import com.temperoni.recipes.ui.views.IngredientsSection;
+import com.temperoni.recipes.ui.views.InstructionsSection;
 
 import javax.inject.Inject;
 
@@ -27,14 +28,14 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
 
     private AppBarLayout appBarLayout;
     private ImageView recipeImage;
-    private DescriptionSection descriptionSection;
 
+    private DescriptionSection descriptionSection;
     private IngredientsSection ingredientsSection;
+    private InstructionsSection instructionsSection;
+
     private String recipeId;
 
     private RecipeDetailViewModel viewmodel;
-
-    private float appBarHeight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +48,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
-
-        appBarHeight = getResources().getDimension(R.dimen.app_bar_height);
 
         recipeImage = (ImageView) findViewById(R.id.header_recipe_image);
 
@@ -63,6 +62,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
 
         descriptionSection = (DescriptionSection) findViewById(R.id.description_section);
         ingredientsSection = (IngredientsSection) findViewById(R.id.ingredients_section);
+        instructionsSection = (InstructionsSection) findViewById(R.id.instructions_section);
 
         recipeId = getIntent().getExtras().getString(EXTRA_RECIPE_ID);
         String imageUrl = getIntent().getExtras().getString(EXTRA_RECIPE_IMAGE);
@@ -95,5 +95,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeDet
         this.viewmodel = viewModel;
         descriptionSection.setData(viewModel);
         ingredientsSection.setIngredients(viewModel.getIngredients());
+        instructionsSection.setSectionWithSteps(viewModel.getInstructions());
     }
 }

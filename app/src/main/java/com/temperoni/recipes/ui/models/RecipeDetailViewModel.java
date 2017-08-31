@@ -51,6 +51,10 @@ public class RecipeDetailViewModel {
         return instructions;
     }
 
+    public boolean hasMultipleInstructions() {
+        return instructions != null && instructions.size() > 1;
+    }
+
     public static class Builder {
 
         int id;
@@ -107,15 +111,26 @@ public class RecipeDetailViewModel {
         private void getInstructions(List<InstructionItem> instructionItemList) {
             instructions = new ArrayList<>();
             for (InstructionItem instructionItem : instructionItemList) {
-                instructions.add(getInstructionItemViewModel(instructionItem));
+                instructions.add(getInstructionItemViewModel(instructionItem, instructionItemList.size() > 1));
             }
         }
 
-        private InstructionItemViewModel getInstructionItemViewModel(InstructionItem instructionItem) {
+        private InstructionItemViewModel getInstructionItemViewModel(InstructionItem instructionItem, boolean shouldShowTitle) {
             InstructionItemViewModel instructionItemViewModel = new InstructionItemViewModel();
             instructionItemViewModel.setDescription(instructionItem.getDescription());
-            instructionItemViewModel.setSteps(instructionItem.getSteps());
+            instructionItemViewModel.setDescriptionAvailable(shouldShowTitle);
+            instructionItemViewModel.setSteps(getStepsWithFullDescription(instructionItem.getSteps()));
             return instructionItemViewModel;
+        }
+
+        private ArrayList<String> getStepsWithFullDescription(List<String> steps) {
+            ArrayList<String> fullSteps = new ArrayList<>();
+            int index = 1;
+            for (String step : steps) {
+                fullSteps.add(index - 1, index + ") " + step);
+                index++;
+            }
+            return fullSteps;
         }
     }
 }
