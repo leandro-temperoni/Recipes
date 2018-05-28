@@ -8,12 +8,12 @@ import com.temperoni.recipes.component.*
  */
 class RecipesApplication : Application(), RecipesComponentProvider {
 
-    val recipesApplicationComponent: RecipesApplicationComponent by lazy {
+    private val recipesApplicationComponent: RecipesApplicationComponent by lazy {
         DaggerRecipesApplicationComponent.builder()
                 .applicationModule(ApplicationModule(this))
                 .build()
     }
 
     override val recipesComponent: RecipesComponent
-        get() = recipesApplicationComponent!!.recipesComponent
+        get() = recipesApplicationComponent.recipesComponent
 }
