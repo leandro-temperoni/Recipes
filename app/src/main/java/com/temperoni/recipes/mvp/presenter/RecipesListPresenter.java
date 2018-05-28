@@ -2,10 +2,12 @@ package com.temperoni.recipes.mvp.presenter;
 
 import android.view.View;
 
+import com.temperoni.recipes.domain.dto.Recipe;
 import com.temperoni.recipes.domain.event.RecipesEvent;
 import com.temperoni.recipes.mvp.model.RecipesListModel;
 import com.temperoni.recipes.mvp.view.RecipesListView;
 
+import java.util.List;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
@@ -47,7 +49,7 @@ public class RecipesListPresenter extends BasePresenter implements RecipesListLi
     public void onRecipesReceived(RecipesEvent event) {
         if (view != null) {
             if (event.isSuccess()) {
-                view.displayRecipes(model.getViewModelList(event.getPayload()));
+                view.displayRecipes(model.getViewModelList((List<Recipe>) event.getPayload()));
             }
         }
     }
