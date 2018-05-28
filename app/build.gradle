@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin:'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply from: 'jacoco.gradle'
 
 android {
@@ -34,6 +35,10 @@ android {
     }
 }
 
+kapt {
+    generateStubs = true
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -48,6 +53,7 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'org.apache.directory.studio:org.apache.commons.io:2.4'
 
+    kapt 'com.google.dagger:dagger-compiler:2.5'
     compile 'com.google.dagger:dagger:2.5'
 
     compile 'com.squareup.picasso:picasso:2.5.2'
