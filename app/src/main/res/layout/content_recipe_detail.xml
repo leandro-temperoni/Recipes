@@ -15,19 +15,19 @@
         android:orientation="vertical">
 
         <com.temperoni.recipes.ui.views.DescriptionSection
-            android:id="@+id/description_section"
+            android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp" />
 
         <com.temperoni.recipes.ui.views.IngredientsSection
-            android:id="@+id/ingredients_section"
+            android:id="@+id/ingredients"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp" />
 
         <com.temperoni.recipes.ui.views.InstructionsSection
-            android:id="@+id/instructions_section"
+            android:id="@+id/instructions"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp" />
