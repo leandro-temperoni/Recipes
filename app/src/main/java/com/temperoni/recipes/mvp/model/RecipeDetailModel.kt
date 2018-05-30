@@ -17,14 +17,16 @@ class RecipeDetailModel
         recipesManager.fetchRecipeDetail(recipeId)
     }
 
-    fun getViewModel(payload: Recipe?): RecipeDetailViewModel {
-        return RecipeDetailViewModel.Builder(
-                payload!!.id,
-                payload.name,
-                payload.image,
-                payload.introduction)
-                .withIngredients(payload.ingredients)
-                .withInstructions(payload.instructions)
-                .build()
+    fun getViewModel(payload: Recipe?): RecipeDetailViewModel? {
+        return if (payload != null) {
+            RecipeDetailViewModel.Builder(
+                    payload.id ?: 0,
+                    payload.name ?: "",
+                    payload.image ?: "",
+                    payload.introduction ?: "")
+                    .withIngredients(payload.ingredients ?: listOf())
+                    .withInstructions(payload.instructions ?: listOf())
+                    .build()
+        } else null
     }
 }

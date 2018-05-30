@@ -36,7 +36,7 @@ class DescriptionSection : CardView {
     }
 
     fun setData(viewModel: RecipeDetailViewModel) {
-        name!!.text = viewModel.name.toUpperCase()
-        description!!.text = viewModel.introduction
+        name?.text = viewModel.name?.toUpperCase()
+        description?.text = viewModel.introduction
     }
 }

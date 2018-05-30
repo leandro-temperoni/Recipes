@@ -33,10 +33,10 @@ class RecipesListActivity : BaseActivity(), RecipesListView {
         recipes.addItemDecoration(VerticalSpaceItemDecoration(30))
         recipes.itemAnimator = DefaultItemAnimator()
         recipes.setHasFixedSize(true)
-        mAdapter.setListener(presenter)
+        mAdapter.listener = presenter
         recipes.adapter = mAdapter
 
-        presenter.setView(this)
+        presenter.view = this
         presenter.fetchData()
     }
 
@@ -51,7 +51,7 @@ class RecipesListActivity : BaseActivity(), RecipesListView {
     }
 
     override fun displayRecipes(recipes: List<RecipeViewModel>) {
-        mAdapter.setData(recipes)
+        mAdapter.recipes = recipes
     }
 
     override fun navigateToRecipeDetail(recipeId: String, recipeImageUrl: String, sharedView: View) {

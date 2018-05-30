@@ -21,10 +21,10 @@ class InstructionsSection(context: Context, attrs: AttributeSet?) : CardView(con
         this.instructionsItemsContainer = findViewById(R.id.instructions_container)
     }
 
-    fun setSectionWithSteps(instructionItemViewModels: List<InstructionItemViewModel>) {
+    fun setSectionWithSteps(instructionItemViewModels: List<InstructionItemViewModel>?) {
         instructionsItemsContainer.removeAllViews()
-        for (instruction in instructionItemViewModels) {
-            addInstructionEntry(instruction)
+        instructionItemViewModels?.forEach {
+            addInstructionEntry(it)
         }
     }
 

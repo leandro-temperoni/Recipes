@@ -17,11 +17,7 @@ class RecipesListPresenter
     @Inject
     constructor(private val model: RecipesListModel, bus: EventBus) : BasePresenter(bus), RecipesListListener {
 
-    private var view: RecipesListView? = null
-
-    fun setView(view: RecipesListView) {
-        this.view = view
-    }
+    var view: RecipesListView? = null
 
     fun fetchData() {
         model.fetchData()
@@ -37,16 +33,12 @@ class RecipesListPresenter
 
     @Subscribe
     fun onRecipesReceived(event: RecipesEvent) {
-        if (view != null) {
-            if (event.isSuccess) {
-                view!!.displayRecipes(model.getViewModelList(event.payload))
-            }
+        if (event.isSuccess) {
+            view?.displayRecipes(model.getViewModelList(event.payload))
         }
     }
 
     override fun onRecipeCardContainerTap(recipeId: String, imageUrl: String, sharedView: View) {
-        if (view != null) {
-            view!!.navigateToRecipeDetail(recipeId, imageUrl, sharedView)
-        }
+        view?.navigateToRecipeDetail(recipeId, imageUrl, sharedView)
     }
 }

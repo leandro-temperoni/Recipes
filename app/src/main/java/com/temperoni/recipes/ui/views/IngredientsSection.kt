@@ -33,16 +33,16 @@ class IngredientsSection : CardView {
         this.ingredientsContainer = findViewById(R.id.ingredients_container)
     }
 
-    fun setIngredients(ingredients: List<IngredientEntryViewModel>) {
-        ingredientsContainer!!.removeAllViews()
-        for (ingredient in ingredients) {
-            addIngredientEntry(ingredient)
+    fun setIngredients(ingredients: List<IngredientEntryViewModel>?) {
+        ingredientsContainer?.removeAllViews()
+        ingredients?.forEach {
+            addIngredientEntry(it)
         }
     }
 
     private fun addIngredientEntry(viewModel: IngredientEntryViewModel) {
         val ingredientEntry = IngredientEntry(context)
         ingredientEntry.setData(viewModel)
-        ingredientsContainer!!.addView(ingredientEntry)
+        ingredientsContainer?.addView(ingredientEntry)
     }
 }

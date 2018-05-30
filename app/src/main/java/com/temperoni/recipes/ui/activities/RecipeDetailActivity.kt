@@ -28,27 +28,27 @@ class RecipeDetailActivity : BaseActivity(), RecipeDetailView {
         component.inject(this)
 
         setSupportActionBar(toolbar)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.title = ""
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = ""
 
         appbar.addOnOffsetChangedListener { _, verticalOffset ->
             //  Vertical offset == 0 indicates appBar is fully  expanded.
             setRecipeTitle(Math.abs(verticalOffset) > 350)
         }
 
-        recipeId = intent.extras!!.getString(EXTRA_RECIPE_ID)
-        val imageUrl = intent.extras!!.getString(EXTRA_RECIPE_IMAGE)
+        recipeId = intent?.extras?.getString(EXTRA_RECIPE_ID)
+        val imageUrl = intent?.extras?.getString(EXTRA_RECIPE_IMAGE)
         Picasso.with(headerRecipeImage.context)
                 .load(imageUrl)
                 .into(headerRecipeImage)
 
-        presenter.setView(this)
+        presenter.view = this
     }
 
     public override fun onResume() {
         super.onResume()
         presenter.register()
-        presenter.fetchRecipeDetail(recipeId!!)
+        presenter.fetchRecipeDetail(recipeId)
     }
 
     public override fun onPause() {
@@ -57,13 +57,18 @@ class RecipeDetailActivity : BaseActivity(), RecipeDetailView {
     }
 
     private fun setRecipeTitle(appBarExpanded: Boolean) {
-        supportActionBar!!.title = if (appBarExpanded && viewmodel != null) viewmodel!!.name else ""
+        supportActionBar?.title = when {
+            appBarExpanded -> viewmodel?.name ?: ""
+            else -> ""
+        }
     }
 
-    override fun displayRecipeDetail(viewModel: RecipeDetailViewModel) {
+    override fun displayRecipeDetail(viewModel: RecipeDetailViewModel?) {
         this.viewmodel = viewModel
-        description.setData(viewModel)
-        ingredients.setIngredients(viewModel.ingredients)
-        instructions.setSectionWithSteps(viewModel.instructions)
+        viewModel?.let {
+            description.setData(it)
+            ingredients.setIngredients(it.ingredients)
+            instructions.setSectionWithSteps(it.instructions)
+        }
     }
 }

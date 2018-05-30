@@ -3,31 +3,26 @@ package com.temperoni.recipes.mvp.model
 import com.temperoni.recipes.domain.dto.Recipe
 import com.temperoni.recipes.manager.RecipesManager
 import com.temperoni.recipes.ui.models.RecipeViewModel
-import java.util.*
 import javax.inject.Inject
 
 /**
  * @author Leandro Temperoni
  */
 class RecipesListModel
-
-    @Inject
-    constructor(private val recipesManager: RecipesManager) {
+@Inject
+constructor(private val recipesManager: RecipesManager) {
 
     fun fetchData() {
         recipesManager.fetchRecipes()
     }
 
-    fun getViewModelList(recipes: List<Recipe>?): List<RecipeViewModel> {
-        val recipeViewModels = ArrayList<RecipeViewModel>()
+    fun getViewModelList(recipes: List<Recipe?>?): List<RecipeViewModel> {
+        val recipeViewModels = mutableListOf<RecipeViewModel>()
 
-        for ((id, image, _, _, name) in recipes!!) {
-            val recipeViewModel = RecipeViewModel(
-                    id,
-                    name,
-                    image)
-
-            recipeViewModels.add(recipeViewModel)
+        recipes?.forEach {
+            recipeViewModels.add(RecipeViewModel(it?.id ?: 0,
+                    it?.name ?: "",
+                    it?.image ?: ""))
         }
 
         return recipeViewModels

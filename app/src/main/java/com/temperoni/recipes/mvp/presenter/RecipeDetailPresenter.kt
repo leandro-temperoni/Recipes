@@ -17,14 +17,10 @@ class RecipeDetailPresenter
     @Inject
     constructor(private val model: RecipeDetailModel, bus: EventBus) : BasePresenter(bus) {
 
-    private var view: RecipeDetailView? = null
+    var view: RecipeDetailView? = null
 
-    fun setView(view: RecipeDetailView) {
-        this.view = view
-    }
-
-    fun fetchRecipeDetail(recipeId: String) {
-        model.fetchRecipeDetail(recipeId)
+    fun fetchRecipeDetail(recipeId: String?) {
+        recipeId?.let { model.fetchRecipeDetail(it) }
     }
 
     fun register() {
@@ -37,10 +33,8 @@ class RecipeDetailPresenter
 
     @Subscribe
     fun onRecipeDetailReceived(event: RecipeDetailEvent) {
-        if (view != null) {
-            if (event.isSuccess) {
-                view!!.displayRecipeDetail(model.getViewModel(event.payload))
-            }
+        if (event.isSuccess) {
+            view?.displayRecipeDetail(model.getViewModel(event.payload))
         }
     }
 }
