@@ -3,7 +3,7 @@ package com.temperoni.recipes.domain.dto
 /**
  * @author Leandro Temperoni
  */
-data class Recipe(var id: Int = 0,
+data class Recipe(var id: Int? = 0,
                   var image: String? = "",
                   var ingredients: List<Ingredient?>? = null,
                   var introduction: String? = "",
