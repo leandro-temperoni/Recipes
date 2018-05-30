@@ -90,7 +90,7 @@ class RecipeDetailViewModel private constructor(builder: Builder) {
         private fun getStepsWithFullDescription(steps: List<String?>?): MutableList<String> {
             val fullSteps = mutableListOf<String>()
             steps?.forEachIndexed { index, step ->
-                fullSteps.add( "$index) $step")
+                fullSteps.add( "${index + 1}) $step")
             }
             return fullSteps
         }

@@ -56,7 +56,7 @@ class RecipesListAdapter : RecyclerView.Adapter<RecipesListAdapter.RecipeViewHol
             container.setOnClickListener {
                 listener.onRecipeCardContainerTap(
                         recipes?.get(adapterPosition)?.id.toString(),
-                        recipes?.get(adapterPosition)?.imageUrl.toString(),
+                        recipes?.get(adapterPosition)?.imageUrl ?: "",
                         image)
             }
         }
