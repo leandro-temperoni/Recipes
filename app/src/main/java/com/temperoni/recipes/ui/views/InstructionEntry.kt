@@ -25,8 +25,8 @@ class InstructionEntry(context: Context) : LinearLayout(context) {
     fun setData(viewModel: InstructionItemViewModel) {
         instructionsTitle.visibility = if (viewModel.hasDescriptionAvailable()) View.VISIBLE else View.GONE
         instructionsTitle.text = viewModel.description
-        for (step in viewModel.steps) {
-            addStepEntry(step)
+        viewModel.steps?.forEach {
+            addStepEntry(it)
         }
     }
 
