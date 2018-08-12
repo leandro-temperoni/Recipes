@@ -2,7 +2,6 @@ package com.temperoni.recipes.utils
 
 import com.google.gson.Gson
 import com.temperoni.recipes.domain.dto.Recipe
-
 import org.apache.commons.io.IOUtils
 
 import java.io.IOException
@@ -21,7 +20,7 @@ class Decoder {
 
         val classLoader = javaClass.classLoader
         try {
-            result = IOUtils.toString(classLoader.getResourceAsStream(fileName))
+            result = IOUtils.toString(classLoader.getResourceAsStream(fileName).reader())
         } catch (e: IOException) {
             e.printStackTrace()
         }
