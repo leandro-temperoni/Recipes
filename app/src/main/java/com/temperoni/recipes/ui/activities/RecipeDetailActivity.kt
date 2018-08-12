@@ -1,6 +1,7 @@
 package com.temperoni.recipes.ui.activities
 
 import android.os.Bundle
+import android.support.design.widget.AppBarLayout
 import com.squareup.picasso.Picasso
 import com.temperoni.recipes.R
 import com.temperoni.recipes.mvp.presenter.RecipeDetailPresenter
@@ -17,7 +18,7 @@ class RecipeDetailActivity : BaseActivity(), RecipeDetailView {
     @Inject
     lateinit var presenter: RecipeDetailPresenter
 
-    private var viewmodel: RecipeDetailViewModel? = null
+    private var viewModel: RecipeDetailViewModel? = null
 
     private var recipeId: String? = null
 
@@ -31,10 +32,11 @@ class RecipeDetailActivity : BaseActivity(), RecipeDetailView {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = ""
 
-        appbar.addOnOffsetChangedListener { _, verticalOffset ->
+        val listener : AppBarLayout.OnOffsetChangedListener = AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
             //  Vertical offset == 0 indicates appBar is fully  expanded.
             setRecipeTitle(Math.abs(verticalOffset) > 350)
         }
+        appbar.addOnOffsetChangedListener(listener)
 
         recipeId = intent?.extras?.getString(EXTRA_RECIPE_ID)
         val imageUrl = intent?.extras?.getString(EXTRA_RECIPE_IMAGE)
@@ -58,13 +60,13 @@ class RecipeDetailActivity : BaseActivity(), RecipeDetailView {
 
     private fun setRecipeTitle(appBarExpanded: Boolean) {
         supportActionBar?.title = when {
-            appBarExpanded -> viewmodel?.name ?: ""
+            appBarExpanded -> viewModel?.name ?: ""
             else -> ""
         }
     }
 
     override fun displayRecipeDetail(viewModel: RecipeDetailViewModel?) {
-        this.viewmodel = viewModel
+        this.viewModel = viewModel
         viewModel?.let {
             description.setData(it)
             ingredients.setIngredients(it.ingredients)

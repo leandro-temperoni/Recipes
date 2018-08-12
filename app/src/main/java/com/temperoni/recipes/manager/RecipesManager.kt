@@ -13,20 +13,20 @@ import javax.inject.Inject
  */
 class RecipesManager @Inject constructor() {
 
-    private lateinit var query: Query
+    private lateinit var reference: DatabaseReference
     private var recipesQueryHandler: RecipesQueryHandler? = null
     private var recipeDetailQueryHandler: RecipeDetailQueryHandler? = null
 
     fun fetchRecipes() {
-        query = FirebaseDatabase.getInstance().getReference("recipes")
+        reference = FirebaseDatabase.getInstance().getReference("recipes")
         recipesQueryHandler = RecipesQueryHandler()
-        query.addListenerForSingleValueEvent(recipesQueryHandler)
+        reference.addListenerForSingleValueEvent(recipesQueryHandler!!)
     }
 
     fun fetchRecipeDetail(recipeId: String) {
-        query = FirebaseDatabase.getInstance().getReference("recipes").child(recipeId)
+        reference = FirebaseDatabase.getInstance().getReference("recipes").child(recipeId)
         recipeDetailQueryHandler = RecipeDetailQueryHandler()
-        query.addListenerForSingleValueEvent(recipeDetailQueryHandler)
+        reference.addListenerForSingleValueEvent(recipeDetailQueryHandler!!)
     }
 
     private fun postEvent(event: ResponseEvent<*>) {
@@ -35,12 +35,8 @@ class RecipesManager @Inject constructor() {
     }
 
     private fun unRegisterListeners() {
-        if (recipesQueryHandler != null) {
-            query.removeEventListener(recipesQueryHandler)
-        }
-        if (recipeDetailQueryHandler != null) {
-            query.removeEventListener(recipeDetailQueryHandler)
-        }
+        recipesQueryHandler?.let { reference.removeEventListener(recipesQueryHandler!!) }
+        recipeDetailQueryHandler?.let { reference.removeEventListener(recipeDetailQueryHandler!!) }
     }
 
     private inner class RecipesQueryHandler : ValueEventListener {
@@ -48,7 +44,8 @@ class RecipesManager @Inject constructor() {
             val recipes = mutableListOf<Recipe>()
             val iterable = dataSnapshot.children
             for (data in iterable) {
-                recipes.add(data.getValue(Recipe::class.java))
+                val item = data.getValue(Recipe::class.java)
+                item?.let { recipes.add(it) }
             }
             val event = RecipesEvent()
             event.payload = recipes
@@ -62,8 +59,8 @@ class RecipesManager @Inject constructor() {
     }
 
     private inner class RecipeDetailQueryHandler : ValueEventListener {
-        override fun onDataChange(dataSnapshot: DataSnapshot?) {
-            val recipe = dataSnapshot?.getValue(Recipe::class.java) ?: Recipe()
+        override fun onDataChange(dataSnapshot: DataSnapshot) {
+            val recipe = dataSnapshot.getValue(Recipe::class.java) ?: Recipe()
             val event = RecipeDetailEvent()
             event.payload = recipe
             postEvent(event)
