@@ -10,7 +10,13 @@ import com.temperoni.recipes.ui.models.RecipeViewModel
 
 interface RecipesListView {
 
-    fun displayRecipes(recipes: List<RecipeViewModel>)
+    fun displayLoading()
+
+    fun displayError()
+
+    fun displayEmptyState()
+
+    fun displayRecipes(data: List<RecipeViewModel>)
 
     fun navigateToRecipeDetail(recipeId: String, imageUrl: String, sharedView: View)
 }

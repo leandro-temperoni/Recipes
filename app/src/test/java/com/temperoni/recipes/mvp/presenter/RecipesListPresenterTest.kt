@@ -46,8 +46,21 @@ class RecipesListPresenterTest {
     }
 
     @Test
-    @Throws(Exception::class)
-    fun itShouldDisplayRecipes() {
+    fun itShouldDisplayRecipesWhenEventIsSuccess() {
+        val event = mock(RecipesEvent::class.java)
+        val recipeViewModels = ArrayList<RecipeViewModel>()
+        val recipes = ArrayList<Recipe>()
+        recipes.add(Recipe())
+        `when`(event.isSuccess).thenReturn(true)
+        `when`(event.payload).thenReturn(recipes)
+        `when`(model.getViewModelList(event.payload)).thenReturn(recipeViewModels)
+
+        presenter.onRecipesReceived(event)
+        verify(view).displayRecipes(recipeViewModels)
+    }
+
+    @Test
+    fun itShouldDisplayEmptyStateWhenEventIsSuccessAndDataIsEmpty() {
         val event = mock(RecipesEvent::class.java)
         val recipeViewModels = ArrayList<RecipeViewModel>()
         val recipes = ArrayList<Recipe>()
@@ -56,7 +69,15 @@ class RecipesListPresenterTest {
         `when`(model.getViewModelList(event.payload)).thenReturn(recipeViewModels)
 
         presenter.onRecipesReceived(event)
-        verify<RecipesListView>(view).displayRecipes(recipeViewModels)
+        verify(view).displayEmptyState()
+    }
+
+    @Test
+    fun itShouldDisplayErrorWhenEventIsNotSuccess() {
+        val event = mock(RecipesEvent::class.java)
+
+        presenter.onRecipesReceived(event)
+        verify(view).displayError()
     }
 
     @Test

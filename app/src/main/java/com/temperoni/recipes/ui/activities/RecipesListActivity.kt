@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import com.temperoni.recipes.R
 import com.temperoni.recipes.mvp.presenter.RecipesListPresenter
 import com.temperoni.recipes.mvp.view.RecipesListView
@@ -50,14 +52,39 @@ class RecipesListActivity : BaseActivity(), RecipesListView {
         presenter.unregister()
     }
 
-    override fun displayRecipes(recipes: List<RecipeViewModel>) {
-        mAdapter.recipes = recipes
+    override fun displayLoading() {
+        error.visibility = GONE
+        empty.visibility = GONE
+        recipes.visibility = GONE
+        progress.visibility = VISIBLE
     }
 
-    override fun navigateToRecipeDetail(recipeId: String, recipeImageUrl: String, sharedView: View) {
+    override fun displayError() {
+        error.visibility = VISIBLE
+        empty.visibility = GONE
+        recipes.visibility = GONE
+        progress.visibility = GONE
+    }
+
+    override fun displayEmptyState() {
+        error.visibility = GONE
+        empty.visibility = VISIBLE
+        recipes.visibility = GONE
+        progress.visibility = GONE
+    }
+
+    override fun displayRecipes(data: List<RecipeViewModel>) {
+        mAdapter.recipes = data
+        error.visibility = GONE
+        empty.visibility = GONE
+        recipes.visibility = VISIBLE
+        progress.visibility = GONE
+    }
+
+    override fun navigateToRecipeDetail(recipeId: String, imageUrl: String, sharedView: View) {
         val intent = Intent(this, RecipeDetailActivity::class.java)
         intent.putExtra(EXTRA_RECIPE_ID, recipeId)
-        intent.putExtra(EXTRA_RECIPE_IMAGE, recipeImageUrl)
+        intent.putExtra(EXTRA_RECIPE_IMAGE, imageUrl)
 
         val options = ActivityOptions.makeSceneTransitionAnimation(this, sharedView, "recipe_image")
 
