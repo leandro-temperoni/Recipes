@@ -20,6 +20,7 @@ class RecipesListPresenter
     var view: RecipesListView? = null
 
     fun fetchData() {
+        view?.displayLoading()
         model.fetchData()
     }
 
@@ -33,8 +34,15 @@ class RecipesListPresenter
 
     @Subscribe
     fun onRecipesReceived(event: RecipesEvent) {
-        if (event.isSuccess) {
-            view?.displayRecipes(model.getViewModelList(event.payload))
+        val data = event.payload as ArrayList?
+        if (event.isSuccess && data != null) {
+            if (data.isEmpty()) {
+                view?.displayEmptyState()
+            } else {
+                view?.displayRecipes(model.getViewModelList(data))
+            }
+        } else {
+            view?.displayError()
         }
     }
 
