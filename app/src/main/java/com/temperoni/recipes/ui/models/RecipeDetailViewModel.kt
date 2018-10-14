@@ -1,5 +1,6 @@
 package com.temperoni.recipes.ui.models
 
+import android.text.TextUtils.isDigitsOnly
 import com.temperoni.recipes.domain.dto.Ingredient
 import com.temperoni.recipes.domain.dto.InstructionItem
 
@@ -9,7 +10,7 @@ import com.temperoni.recipes.domain.dto.InstructionItem
 class RecipeDetailViewModel private constructor(builder: Builder) {
 
     val id: Int?
-    private val imageUrl: String?
+    val imageUrl: String?
     val name: String?
     val introduction: String?
     val ingredients: List<IngredientEntryViewModel>?
@@ -65,7 +66,13 @@ class RecipeDetailViewModel private constructor(builder: Builder) {
 
         private fun getIngredientViewModel(ingredient: Ingredient): IngredientEntryViewModel {
             val ingredientEntryViewModel = IngredientEntryViewModel()
-            ingredientEntryViewModel.description = "${ingredient.amount} de ${ingredient.name}"
+
+            if (isDigitsOnly(ingredient.amount)) {
+                ingredientEntryViewModel.description = "${ingredient.amount} ${ingredient.name?.toLowerCase()}"
+            } else {
+                ingredientEntryViewModel.description = "${ingredient.amount} de ${ingredient.name?.toLowerCase()}"
+            }
+
             return ingredientEntryViewModel
         }
 
