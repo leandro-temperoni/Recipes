@@ -20,7 +20,7 @@ class Decoder {
 
         val classLoader = javaClass.classLoader
         try {
-            result = IOUtils.toString(classLoader.getResourceAsStream(fileName).reader())
+            result = IOUtils.toString(classLoader?.getResourceAsStream(fileName)?.reader())
         } catch (e: IOException) {
             e.printStackTrace()
         }

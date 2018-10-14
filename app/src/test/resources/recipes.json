@@ -9,28 +9,8 @@
           "name": "Queso crema"
         },
         {
-          "amount": "400 gr",
-          "name": "Crema"
-        },
-        {
-          "amount": "150 gr",
-          "name": "Manteca"
-        },
-        {
-          "amount": "225 gr",
-          "name": "Azucar"
-        },
-        {
-          "amount": "100 ml",
-          "name": "Leche"
-        },
-        {
-          "amount": "125 gr",
-          "name": "Frutos rojos"
-        },
-        {
-          "amount": "1 crdita",
-          "name": "Esencia de vainilla"
+          "amount": "4",
+          "name": "Huevos"
         },
         {
           "amount": "Un toque",
@@ -63,7 +43,6 @@
           "steps": [
             "Procesar los frutos rojos junto con 25 gr de azúcar hasta obtener la consistencia deseada.",
             "Retirar el molde del freezer y verter la mezcla obtenida sobre la crema de queso, y cubrir la totalidad de la torta.",
-            null,
             "Llevar a la heladera por al menos 6 horas. Servir bien frío."
           ]
         }
